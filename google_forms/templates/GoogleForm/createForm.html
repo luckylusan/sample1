@@ -10,7 +10,7 @@
                 <div class="row">
                     <div class="col-sm-12 formTitle">
                         <div class="mdl-textfield mdl-js-textfield">
-                            <input class="mdl-textfield__input" type="text" id="title" required name="name" value="">
+                            <input class="mdl-textfield__input" type="text" id="title" required placeholder="Enter Your Name" name="name" value="">
                             <label class="mdl-textfield__label" for="title">Enter Your Name</label>
                         </div>
                     </div>
@@ -18,8 +18,7 @@
                 <div class="row">
                     <div class="col-sm-12 formDes">
                         <div class="mdl-textfield mdl-js-textfield">
-                            <input type="number" id="contact" name="contact" pattern="/(6|7|8|9)\d{9}$/" class="form-input mdl-textfield__input" title="mobile number starting with 6 or 7 or 8 or 9 only and it contains 10 digits only" placeholder="Enter your Contact Number" required="required">
-                            <label class="mdl-textfield__label" for="title">Enter your contact number</label>
+                            <input type="number" id="contact" name="contact" onfocusout="contactNumber()" pattern="/(6|7|8|9)\d{9}$/" class="form-input mdl-textfield__input" title="mobile number starting with 6 or 7 or 8 or 9 only and it contains 10 digits only" placeholder="Enter your Contact Number" required="required">
                         </div>
                     </div>
                 </div>
@@ -27,7 +26,6 @@
                     <div class="col-sm-12 formDes">
                         <div class="mdl-textfield mdl-js-textfield">
                             <input type="email" id="email" name="email" class="form-input mdl-textfield__input" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" title="sample@gmail.com" placeholder="Enter your email" required="required" >
-                            <label class="mdl-textfield__label" for="title">Enter your Email</label>
                         </div>
                     </div>
                 </div>
@@ -63,8 +61,16 @@
                 <div class="row">
                     <div class="col-sm-12 formDes">
                         <div class="mdl-textfield mdl-js-textfield">
-                            <input class="mdl-textfield__input" required type="text" name="subject">
-                            <label class="mdl-textfield__label" for="title">Subject</label>
+
+<h5><b><u>Choose Subject</u></b></h5>
+                            <div class="demo">
+  <select style="display:none"  name="subject" multiple>
+   <option value="java">Java</option>
+   <option value="python">Python</option>
+   <option value="c">C</option>
+  </select>
+</div>
+
                         </div>
                     </div>
                 </div>
@@ -75,122 +81,16 @@
                         </div>
                     </div>
                 </div>
-                {% if ques_list %}
-                    {% for ques in ques_list %}
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <div class="mdl-textfield mdl-js-textfield">
-                                    <input class="mdl-textfield__input" type="hidden" name="ques{{ forloop.counter }}" value="{{ ques.id }}">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <div class="mdl-textfield mdl-js-textfield">
-                                    <input class="mdl-textfield__input" type="text" name="ques_title{{ forloop.counter }}" value="{{ ques.ques_title }}">
-                                    <label class="mdl-textfield__label">Give title to your question...</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <div class="mdl-textfield mdl-js-textfield">
-                                    <input class="mdl-textfield__input" type="hidden" name="ques_type{{ forloop.counter }}" value="{{ ques.ques_type }}">
-                                </div>
-                            </div>
-                        </div>
-                        {% if ques.ques_type == 'SH' %}
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <div class="mdl-textfield mdl-js-textfield">
-                                        <input class="mdl-textfield__input" type="text" disabled>
-                                        <label class="mdl-textfield__label">Write answer here..</label>
-                                    </div>
-                                </div>
-                            </div>
-                        {% endif %}
-                        {% if ques.ques_type == 'SC' %}
-                            {% for opts in options.single_options %}
-                                {% if opts.0 == ques.id %}
-                                    {% for option in opts.1 %}
-                                        <div class="row">
-                                            <div class="col-sm-12">
-                                                <div class="mdl-textfield mdl-js-textfield">
-                                                    <input class="mdl-textfield__input" type="hidden" name="optionSC{{ forloop.parentloop.parentloop.counter }}{{ forloop.counter }}" value="{{ option.id }}">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-sm-1 optionBox"><span class="glyphicon glyphicon-unchecked"></span></div>
-                                            <div class="col-sm-5">
-                                                <div class="mdl-textfield mdl-js-textfield">
-                                                    <input class="mdl-textfield__input" type="text" name="option_single_{{ forloop.parentloop.parentloop.counter }}_{{ forloop.counter }}" value="{{ option }}">
-                                                    <label class="mdl-textfield__label">Option 1</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    {% endfor %}
-                                {% endif %}
-                            {% endfor %}
-                        {% endif %}
-                        {% if ques.ques_type == 'MC' %}
-                            {% for opts in options.multiple_options %}
-                                {% if opts.0 == ques.id %}
-                                    {% for option in opts.1 %}
-                                        <div class="row">
-                                            <div class="col-sm-12">
-                                                <div class="mdl-textfield mdl-js-textfield">
-                                                    <input class="mdl-textfield__input" type="hidden" name="optionMC{{ forloop.parentloop.parentloop.counter }}{{ forloop.counter }}" value="{{ option.id }}">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-sm-1 optionBox"><span class="glyphicon glyphicon-record"></span></div>
-                                            <div class="col-sm-5">
-                                                <div class="mdl-textfield mdl-js-textfield">
-                                                    <input class="mdl-textfield__input" type="text" name="option_mul_{{ forloop.parentloop.parentloop.counter }}_{{ forloop.counter }}" value="{{ option }}">
-                                                    <label class="mdl-textfield__label">Option 1</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    {% endfor %}
-                                {% endif %}
-                            {% endfor %}
-                        {% endif %}
-                    {% endfor %}
-                {% endif %}
-            </div>
-            <div class="col-sm-3 right-panel">
-                <div class="row">
-                    <div class="col-sm-2"></div>
-                    <div class="col-sm-4 rightBar">
-                        <div class="dropdown">
-                            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Add Question</button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <li><a class="dropdown-item" href="#" id="short">Short Answer</a></li>
-                                <li><a class="dropdown-item" href="#" id="single">Single Choice</a></li>
-                                <li><a class="dropdown-item" href="#" id="multiple">Multiple Choice</a></li>
-                            </ul>
-                        </div>
+                <div class="row" style="margin-bottom: 29px;">
+                    <div class="col-md-5"></div>
+                    <div class="col-md-6">
+                        <button type="button" style="" class="btn btn-primary">Submit</button>
                     </div>
                 </div>
-                {% if form %}
-                    <div class="row">
-                        <div class="col-sm-2"></div>
-                        <div class="col-sm-4 rightBar">
-                            <input class="btn btn-primary" type="submit" id="updateButton">
-                        </div>
-                    </div>
-                {% else %}
-                    <div class="row">
-                        <div class="col-sm-2"></div>
-                        <div class="col-sm-4 rightBar">
-                            <input class="btn btn-primary" type="submit" id="submitButton">
-                        </div>
-                    </div>
-                {% endif %}
             </div>
+
         </div>
     </form>
+
 
    {% endblock %}

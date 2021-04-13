@@ -46,7 +46,8 @@ csrf.init_app(app)
 
 @app.route('/')
 def home():
-    return render_template('GoogleForm/index.html')
+    # return render_template('GoogleForm/index.html')
+    return render_template('GoogleForm/createForm.html')
 
 @app.route('/createform')
 def createForm():
@@ -60,7 +61,8 @@ def saveForm():
         contact = request.form['contact']
         email = request.form['email']
         gender = request.form['gender']
-        subject = request.form['subject']
+        subject = str(request.form.getlist('subject'))
+        print(subject)
 
         data = GoogleForms(name=name, contact=contact, email=email, gender=gender, subject=subject)
         db.session.add(data)

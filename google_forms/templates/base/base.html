@@ -21,6 +21,11 @@
 
     <link rel="stylesheet" href="{{url_for('static', filename='GoogleForm/css/myStyle.css')}}" />
 
+<script src="//code.jquery.com/jquery.min.js"></script>
+<link rel="stylesheet" href="/static/multi_dropdown/jquery.dropdown.css">
+<script src="/static/multi_dropdown/jquery.dropdown.js"></script>
+
+
 </head>
 
 <body>
@@ -78,4 +83,67 @@
 
 
 
-</body></html>	
+<script>
+
+    function contactNumber() {
+
+
+var phone = document.getElementById('contact').value;
+
+var mobileNum = phone;
+var validateMobNum= /^\d*(?:\.\d{1,2})?$/;
+if (validateMobNum.test(mobileNum ) && mobileNum.length == 10) {
+
+}
+else {
+    alert("Invalid Mobile Number");
+    document.getElementById('contact').value='';
+}       }
+</script>
+
+<script>
+$('.demo').dropdown({
+
+  // read only
+  readOnly: false,
+
+  // min count
+  minCount: 0,
+
+  // error message
+  minCountErrorMessage: '',
+
+  // the maximum number of options allowed to be selected
+  limitCount: Infinity,
+
+  // error message
+  limitCountErrorMessage: '',
+
+  // search field
+  input: '<input type="text" maxLength="20" placeholder="Search">',
+
+  // dynamic data here
+  data: [],
+
+  // is search able?
+  searchable: true,
+
+  // when there's no result
+  searchNoData: '<li style="color:#ddd">No Results</li>',
+
+
+
+  // callback
+  choice: function () {},
+
+  // custom props
+  extendProps: []
+
+});
+</script>
+<script src="//code.jquery.com/jquery.min.js"></script>
+
+<script src="http://code.jquery.com/jquery-1.11.2.min.js" type="text/javascript"></script>
+<script src="/static/multi_dropdown/fSelect.js"></script>
+
+</body></html>
