@@ -1,0 +1,93 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+
+
+    <!-- Optional JavaScript; choose one of the two! -->
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+
+        <h2 style="align:center">List Of All Forms</h2>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+
+
+
+    <table id="example1" class="table table-bordered table-striped">
+                  <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Contact</th>
+                    <th>Email</th>
+                    <th>Subject</th>
+                    <th>Gender</th>
+                      <th>Created</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+
+                {% for x in all_forms %}
+                      <tr>
+                        <td>{{ x.name }}</td>
+                        <td>{{ x.contact }}</td>
+                        <td>{{ x.email }}</td>
+                        <td>{{ x.subject }}</td>
+                        <td>{{ x.gender }}</td>
+                          <td>{{ x.date_created }}</td>
+                        <td class="text-center">
+                            <a href="/editForm/{{ x.sno }}"><i class="fa fa-edit"></i></a>
+                        </td>
+                        <td class="text-center">
+                            <a href="/deleteForm/{{ x.sno }}" class="confirm-delete"><i class="fa fa-trash" style="color: red"></i></a>
+                        </td>
+                      </tr>
+                {% endfor %}
+                  </tbody>
+                  <tfoot>
+                  <tr>
+                    <th>Name</th>
+                    <th>Contact</th>
+                    <th>Email</th>
+                    <th>Subject</th>
+                    <th>Gender</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                  </tr>
+                  </tfoot>
+                </table>
+
+
+          </div>
+</div>
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>
+    -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css" />
+<script src="//cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      $("#example1").DataTable({
+        "responsive": true,
+        "autoWidth": false,
+      });
+
+    });
+
+    // Confirmation before deleting record
+    $(document).on('click', '.confirm-delete', function(){
+        return confirm('Are you sure you want to delete this?');
+    })
+
+  </script>
+
+
+{% endblock %}
